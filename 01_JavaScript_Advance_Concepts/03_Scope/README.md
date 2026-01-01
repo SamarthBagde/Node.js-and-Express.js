@@ -15,7 +15,7 @@ a) Global Scope :
 
 Example : 
 
-```
+```js
 let x = 10;
 
 function test() {
@@ -33,7 +33,7 @@ b) Function Scope :
 
 Example :
 
-```
+```js
 function demo() {
   let a = 5;
   console.log(a);
@@ -49,7 +49,7 @@ c) Block Scope :
 
 Example : 
 
-```
+```js
 if (true) {
   let b = 20;
   const c = 30;
@@ -78,7 +78,7 @@ Inner functions can access variables of outer functions.
 
 Example : 
 
-```
+```js
 function outer() {
   let x = 10;
 
@@ -111,7 +111,7 @@ If still not found then it gives `ReferenError`.
 
 Example : 
 
-```
+```js
 let globalVar = "I am global";
 
 function outer() {

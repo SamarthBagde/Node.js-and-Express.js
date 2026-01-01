@@ -13,7 +13,7 @@ Hoisted and initialized as `undefined`.
 
 Example : 
 
-```
+```js
 console.log(a); // undefined
 var a = 10;
 ```
@@ -26,7 +26,7 @@ Accessing them before actual declaration is not possible. It will give `Referenc
 
 Example : 
 
-```
+```js
 console.log(b); // ❌ ReferenceError
 let b = 20;
 ```
@@ -40,7 +40,7 @@ Hoisted and initialized with the acutal function defination.
 
 Example :
 
-```
+```js
 hello(); // ✅ works 
 
 function hello() {
@@ -54,7 +54,7 @@ Only varible hoisted and not initialized with function body.
 
 Example : 
 
-```
+```js
 sayHi(); // ❌ TypeError
 
 var sayHi = function () {
@@ -71,7 +71,7 @@ Only varible hoisted and not initialized with function body.
 
 Example : 
 
-```
+```js
 greet(); // ❌ ReferenceError
 
 const greet = () => {
