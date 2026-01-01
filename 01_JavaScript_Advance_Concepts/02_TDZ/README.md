@@ -6,7 +6,7 @@ It is applied to variable declared using `let` or `const`.
 
 Example : 
 
-```
+```js
 console.log(x); // ❌ ReferenceError (TDZ)
 let x = 5;
 ```
