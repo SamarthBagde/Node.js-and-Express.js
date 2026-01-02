@@ -24,7 +24,9 @@ Each execution context has two phases:
 - Values are assigned
 - Functions are executed
 
-<!-- execution context diagram here -->
+<br>
+
+![Execution Context Dig](../diagrams/executionContextDig.png)
 
 ## Types
 
