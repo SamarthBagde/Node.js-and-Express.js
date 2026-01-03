@@ -92,3 +92,59 @@ or
 <hr>
 
 # 4. Slice VS Splice
+
+Both are array methods used to manipulate arrays, but they have slightly different purposes and behaviors.
+
+<b>a) slice() :</b>
+
+`slice()` returns a shallow copy of a portion of an array without modifying the original array.
+
+Syntax :
+```
+array.slice(start, end)
+```
+- start → index to begin (inclusive)
+- end → index to stop (exclusive)
+- Does NOT change original arra
+
+Example :
+
+```js
+const arr = [1, 2, 3, 4, 5];
+
+const result = arr.slice(1, 4);
+
+console.log(result); // [2, 3, 4]
+console.log(arr);    // [1, 2, 3, 4, 5]
+```
+
+<b>b) splice() : </b>
+
+`splice()` modifies the original array by adding, removing, or replacing elements.
+
+It return removed elements.
+
+Syntax :
+
+```
+array.splice(start, deleteCount, item1, item2, ...)
+```
+- start → index to start changes
+- deleteCount → number of elements to remove
+- items → elements to inser
+
+Example :
+
+```js
+const arr = [1, 2, 3, 4, 5];
+
+const removed = arr.splice(1, 2);
+
+console.log(removed); // [2, 3]
+console.log(arr);     // [1, 4, 5]
+
+// arr.splice(1, 0, 10, 20);
+// // [1, 10, 20, 4, 5]
+```
+
+<hr>
