@@ -16,6 +16,7 @@ There are two types of microtask queues:
 - process.nextTick(): process.nextTick() callbacks go here
 - promise microtask queue: Promise.then(), catch, finally and queueMicrotask() go here.
 
+<<<<<<< Updated upstream
 
 ### Single Threaded architecure in node js
 
@@ -155,6 +156,8 @@ These block the event loop if run on main thread.
 
 Worker Threads allow you to run JavaScript in parallel threads inside the same Node.js process.
 
+=======
+>>>>>>> Stashed changes
 ### Memory Leak in Node js
 
 When memory is allocated but never released, it is a memory leak.
