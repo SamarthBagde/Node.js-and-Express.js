@@ -128,3 +128,18 @@ const authenticate = (req, res, next) => {
 ```
 
 ## Sending JWT Token through Cookie
+
+```js
+  const options = {
+    expire: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    httpOnly: true,  // JS cannot access (XSS protection)
+  };
+  
+  res.status(statusCode).cookie("token", token, options).json({
+    status: "Success",
+    token,
+    data: {
+      user,
+    },
+  });
+```
