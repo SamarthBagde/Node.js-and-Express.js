@@ -126,3 +126,5 @@ const authenticate = (req, res, next) => {
   }
 };
 ```
+
+## Sending JWT Token through Cookie
