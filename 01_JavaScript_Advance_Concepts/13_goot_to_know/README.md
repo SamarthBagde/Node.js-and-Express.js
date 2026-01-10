@@ -148,3 +148,34 @@ console.log(arr);     // [1, 4, 5]
 ```
 
 <hr>
+
+# 5. Module in JavaScript
+
+A module is a separate file that contains code (variables, functions, classes) which can be exported and reused in other files.
+
+Modules help organize code and avoid global scope pollution.
+
+Example :
+
+```js
+// math.js
+export function add(a, b) {
+  return a + b;
+}
+
+export function multiply(a, b) {
+  return a * b;
+}
+```
+
+```js
+// app.js
+import { add, multiply } from './math.js';
+import getUser from './user.js';
+
+console.log(add(2, 3));        // 5
+console.log(multiply(4, 5));   // 20
+
+const user = getUser();
+console.log(user);
+```
