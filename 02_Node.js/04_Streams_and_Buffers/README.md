@@ -1,118 +1,112 @@
-# Streams
+### Streams and Buffers in Node js
 
 A stream is a way to process data piece-by-piece (chunks) instead of loading everything into memory at once.
 
-Process large data chunk - by - chunk
-
-Example :
-
-``` js
-// Without streams:
+```
+Without streams:
 
 const data = fs.readFileSync('bigfile.mp4'); // loads entire file into RAM 
 
 
-// With streams:
+With streams:
 
 const stream = fs.createReadStream('bigfile.mp4'); // small chunks
 ```
 
-## Types :
+There are 4 types of streams:
 
-### There are 4 types of streams
+1. Readable stream: used to read data
+Used as:
+fs.createReadStream() -> Reads a file chunk by chunk from disk.
+HTTP request body -> Reads incoming data sent by the client to the server.
+Process.stdin -> Reads user input entered via keyboard/terminal.
 
-### 1. Readable stream: 
-
-Used to read data
-
-Examples:
-
-    fs.createReadStream()
-    HTTP request body
-    Process.stdin
-
-### 2. Writable stream: 
-
-Used to write data. 
-
-Examples:
-
-    fs.createWriteStream()
-    HTTP response
-    Process.stdout
-
-### 3. Duplex stream: 
-
-Can read & write simultaneously. 
- 
-Example : TCP and web sockets.
-
-### 4. Transform stream: 
-
-A Transform stream is a type of Duplex stream in Node.js that can read data, modify (transform) it, and then write the transformed data.
-
- Example: compression and encryption.
-
-## Stream Piping and Backpressure: 
-
-### Stream Piping : 
-
-Stream piping is a mechanism that allows the output of one stream to be passed directly as the input to another stream using the `.pipe()` method.
-
-Syntax :
-
-```js
-readableStream.pipe(writableStream);
+Examples: 
 ```
+const fs = require('fs');
 
-Example : 
+const readStream = fs.createReadStream('input.txt', {
+  encoding: 'utf8'
+});
 
-File Copy using Pipe
+readStream.on('data', (chunk) => {
+  console.log('Received chunk:', chunk);
+});
 
-```js
-import fs from 'fs';
+readStream.on('end', () => {
+  console.log('Finished reading file');
+});
 
-const readStream = fs.createReadStream('input.txt');
+```
+2. Writable stream: used to write data. 
+Used as: 
+fs.createWriteStream() -> Writes data incrementally to a file.
+HTTP response -> Sends data from server to client as a stream.
+Process.stdout -> Writes output to the console.
+
+examples:
+```
+const fs = require('fs');
 const writeStream = fs.createWriteStream('output.txt');
-
-readStream.pipe(writeStream);
+writeStream.write('Hello ');
+writeStream.write('Node.js Streams!');
+writeStream.end();
 ```
 
-### Backpressure :
+3. Duplex stream: Can read & write simultaneously. E.g TCP and web sockets.
 
-Backpressure happens when a readable stream produces data faster than a writable stream can consume it.
+examples:
+```
+const { Duplex } = require('stream');
+const duplexStream = new Duplex({
+  read(size) {
+    this.push('Hello from read side');
+    this.push(null);
+  },
+  write(chunk, encoding, callback) {
+    console.log('Writing:', chunk.toString());
+    callback();
+  }
+});
+
+duplexStream.write('Hello from write side');
+duplexStream.pipe(process.stdout);
+```
+
+4. Transform stream: A special duplex stream that modifies data. Examples include compression and encryption.
+
+examples:
+```
+const { Transform } = require('stream');
+
+const upperCaseStream = new Transform({
+  transform(chunk, encoding, callback) {
+    this.push(chunk.toString().toUpperCase());
+    callback();
+  }
+});
+
+process.stdin
+  .pipe(upperCaseStream)
+  .pipe(process.stdout);
+```
+
+
+### Stream Piping and Backpressure: 
+
+Stream Piping: Connecting streams so output of one becomes input of another.
+
+Backpressure: When a readable stream produces data faster than a writable stream can consume it
 
 What Happens Without Backpressure:
-
 - Memory builds up
 - App crashes
 
-Node handles it as follows :
+Node handles it as follows:
+1. .write() returns false
+2. Readable stream pauses
+3. Resumes on drain event
 
-- Node.js pauses the source stream when the destination is slow and resumes it when ready.
-
-# Buffer
-
-Temporary memory storage of Fixed size that Stores entire data chunk
+Buffer: Temporary memory storage of Fixed size that Stores entire data chunk
 
 - Stream is basically flow of buffers. Stream internally uses buffers.
-
-## Why Buffer is needed
-
-JavaScript was originally designed for text, not binary data.
-Node.js introduced Buffer to work with :
-
-- files
-- network streams
-- images
-- videos
-- TCP packets
-
-Example :
-
-```js
-const buf = Buffer.from('Hello');
-
-console.log(buf);              // <Buffer 48 65 6c 6c 6f>
-console.log(buf.toString());   // Hello
-```
