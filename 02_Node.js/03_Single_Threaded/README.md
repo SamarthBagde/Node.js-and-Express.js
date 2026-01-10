@@ -2,7 +2,7 @@
 
 Node.js has a single-threaded model. This means it uses a single thread to handle multiple tasks. To achieve this, Node.js uses an event-driven, non-blocking I/O model.
 
-## The Event-driven and non blocking I/O model 
+## The Event-driven and non blocking I/O model:
 
 The core of Node.js's single-threaded architecture is the event loop. The event loop continuously cycles through a series of phases, executing callbacks and handling events. 
 
